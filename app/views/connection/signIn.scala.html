@@ -1,0 +1,22 @@
+@(user: Form[controllers.connection.ConnectionController.SignInForm])
+
+@import tags.twitterBootstrap._
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
+
+@insidePage(Messages("user.signin.title"), "signup", "signin") {
+
+	@form(action = controllers.connection.routes.ConnectionController.signIn(), 'class -> "form-horizontal", 'method -> "POST") {
+		<fieldset>
+			@inputText(user("username"), '_label -> "Username")
+			@inputPassword(user("password"), '_label -> "Password", '_type -> "password")
+			<div class="controls">
+				@Html(Messages("user.signin.signup", controllers.connection.routes.ConnectionController.signUp()))
+			</div>
+			
+			@submit(cancelUrl = "/")
+		</fieldset>
+	}	
+
+}

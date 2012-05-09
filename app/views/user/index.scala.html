@@ -1,0 +1,234 @@
+@(user: User, edit: Boolean, userDetailForm: Form[controllers.user.EditUserController.UserDetailForm])
+
+@import helper._
+
+@defining(Application.getConnectedUser()) { connectedUser =>
+	@insidePage(user.username, "user", "user") {
+	
+		<div class="row">
+			<!-- Left side -->
+			<div class="span4">
+						
+				<!-- Personal details -->
+				<section id="personal_details">
+					<div class="page-header">
+						<h3>@Messages("user.home.personaldetails")</h3>
+					</div>
+					 
+					@helper.form(action = controllers.user.routes.EditUserController.save(user.username), 'class -> "form-horizontal", 'method -> "POST") {
+						
+						<div class="detail">
+							<label>Name:</label>
+							@if(edit) {
+								<input type="text" name="fullname" value="@user.fullname" />
+							} else {
+								<span>@user.fullname</span>
+							}
+						</div>
+						
+						<div class="detail">
+							<label>Town:</label>
+							@if(edit) {
+								<input type="text" name="town" value="@user.town" />
+							} else {
+								<span>@user.town</span>
+							}
+							
+						</div>
+						
+						<div class="detail">
+							<label>Country:</label>
+							@if(edit) {
+								<input type="text" name="country" value="@user.country" />
+							} else {
+								<span>@user.country</span>
+							}
+						</div>
+						
+						@if(edit) {
+							<button type="submit" class="btn btn-primary">@Messages("general.submit")</button>
+							<button class="btn" onclick="document.location.href='@controllers.user.routes.UserController.index(user.username)'; return false;">Cancel</button>
+						} else {
+							@if(user == connectedUser) {
+							<input type="submit" class="btn primary" onclick="document.location.href='@controllers.user.routes.EditUserController.index(user.username)'; return false;" value="@Messages("general.edit")">
+							}
+						}
+					}
+					
+				</section>
+				
+				<!-- Follow / Unfollow -->
+				@if(connectedUser != null && connectedUser != user) {
+					@if(connectedUser.isFollowing(user)) {
+						<a class="btn btn-small" href="@controllers.user.routes.EditUserController.unfollow(user.username)"><i class="icon-user"></i> Unfollow</a>
+					} else {
+						<a class="btn btn-small" href="@controllers.user.routes.EditUserController.follow(user.username)"><i class="icon-user"></i> Follow</a>
+					} 
+				}
+				
+				<!-- Contacts -->
+				<section id="contacts">
+					<div class="page-header">
+						<h3>@Messages("user.home.contacts")</h3>
+					</div>
+					
+					<dl>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Cléopâtre</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Albert Einstein</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Jules César</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Astérix</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">John Lennon</a><dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Cléopâtre</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Albert Einstein</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Jules César</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Astérix</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">John Lennon</a><dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Cléopâtre</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Albert Einstein</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Jules César</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Astérix</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">John Lennon</a><dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Cléopâtre</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Albert Einstein</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Jules César</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">Astérix</a></dt>
+						<dt><a href="@controllers.user.routes.UserController.index("toto")">John Lennon</a><dt>
+					</dl>
+					
+					@if(user == connectedUser) {
+					<input type="submit" class="btn primary" value="@Messages("user.home.contacts.invite")" onclick="document.location.href='#'">
+					}
+					
+				</section>
+				
+			</div>
+			
+			<!-- Right side -->
+			<div class="span8">
+			
+				<!-- Personal records -->
+				<section id="personal_records">
+					<div class="page-header">
+						<h3>@Messages("user.home.personalbests")</h3>
+					</div>
+					
+					<table class="table table-condensed">
+						<thead>
+							<tr>
+								<th>@Messages("general.distance")</th>
+								<th>@Messages("general.time")</th>
+								<th>@Messages("general.speed")</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>10km</td>
+								<td>40min</td>
+								<td>15km/h</td>
+							</tr>
+							<tr>
+								<td>@Messages("general.halfmarathon")</td>
+								<td>1h30</td>
+								<td>14km/h</td>
+							</tr>
+							<tr>
+								<td>@Messages("general.marathon")</td>
+								<td>3h30</td>
+								<td>13km/h</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+				
+				
+				<!-- Past races -->
+				<section id="past_races">
+					<div class="page-header">
+						<h3>@Messages("user.home.pastraces")</h3>
+					</div>
+					
+					<table class="table table-condensed">
+						<thead>
+							<tr>
+								<th>@Messages("general.race")</th>
+								<th>@Messages("general.date")</th>
+								<th>@Messages("general.time")</th>
+								<th>@Messages("general.speed")</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>New York Marathon</td>
+								<td>09/11/2011</td>
+								<td>3h30</td>
+								<td>13km/h</td>
+							</tr>
+							<tr>
+								<td>Paris Half-marathon</td>
+								<td>03/27/2011</td>
+								<td>1h30</td>
+								<td>14km/h</td>
+							</tr>
+							<tr>
+								<td>10km Planet Jogging</td>
+								<td>05/01/2009</td>
+								<td>40min</td>
+								<td>15km/h</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					@if(user == connectedUser) {
+					<input type="submit" class="btn primary" value="@Messages("user.home.addnewperformance")" onclick="#">
+					}
+				</section>
+				
+				
+				<!-- Charts -->
+				<section id="charts">
+					<div class="page-header">
+						<h3>@Messages("user.home.charts")</h3>
+					</div>
+				</section>
+				
+				
+				<!-- Next races -->
+				<section id="next_races">
+					<div class="page-header">
+						<h3>@Messages("user.home.nextraces")</h3>
+					</div>
+					
+					<table class="table table-condensed">
+						<thead>
+							<tr>
+								<th>@Messages("general.race")</th>
+								<th>@Messages("general.date")</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>New York Marathon</td>
+								<td>09/11/2011</td>
+							</tr>
+							<tr>
+								<td>Paris Half-marathon</td>
+								<td>03/27/2011</td>
+							</tr>
+							<tr>
+								<td>10km Planet Jogging</td>
+								<td>05/01/2009</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					@if(user == connectedUser) {
+					<div>
+						<input type="submit" class="btn primary" value="@Messages("user.home.addnextrace")">
+					</div>
+					}
+				</section>
+				
+			</div>
+		</div>
+	}
+}

@@ -1,0 +1,22 @@
+@(title: String, id: String, nav: String = "")(content: Html)
+
+@main(title, nav) {
+
+	<header class="jumbotron masthead">
+		<div class="smallinner">
+		</div>
+	</header>
+	
+	<div id="@id" class="container">
+		<section>
+			<div id="title" class="page-header">
+				<h1>@title</h1>
+			</div>
+			
+			<section id="content">
+				@content
+			</section>
+			
+		</section>
+	</div>
+}

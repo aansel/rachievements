@@ -1,0 +1,106 @@
+# General
+general.title=Running achievements
+general.ok=OK
+general.submit=Submit
+general.cancel=Cancel
+general.error.fieldrequired=This field is required
+
+general.distance=Distance
+general.race=Race
+general.date=Date
+general.time=Time
+general.speed=Speed
+general.halfmarathon=Half marathon
+general.marathon=Marathon
+general.edit=Edit information
+
+# Home page
+home.title=Your runs, online.
+home.subtitle=This website is dedicated to runners.<br />Store your past performances online and evaluate your progress.
+home.p1.title=Track your progress
+home.p1.content=<p>Add a record for each of your past races (1000m, 10km, 15 miles, half-marathon, marathon...)</p><p>Add comments, generate charts and display them on your personnal page.</p>
+home.p1.action=An example now
+home.p2.title=Be social
+home.p2.content=<p>Invite your friends, you''ll be alerted whenever they prepare a new race or add new records.</p><p>Share your last performance on social networks -- Facebook, Twitter or Google+.</p>
+home.p2.action=More details
+home.p3.title=Register
+home.p3.content=<p>Interested? Sign up now, it just takes a few seconds.</p><p>Please note that this website is totally free of use.</p>
+home.p3.action=Create an account
+
+
+# Account creation
+user.signup.title=Sign up
+user.signup.subtitle=Create an account
+user.signup.login=Username
+user.signup.login.unavailable=Login unavailable
+user.signup.login.toolong=Please restrain to 12 characters
+user.signup.login.incorrect=Username must contain between 4 and 12 letters or numbers. No whitespace, no special character.
+user.signup.email.invalid=Incorrect format
+user.signup.email=E-mail
+user.signup.email.unavailable=An account has already been registered with this email adress
+user.signup.password=Password
+user.signup.passwordconfirmation=Password confirmation
+user.signup.passwordconfirmation.incorrect=Password confirmation doesn''t match
+user.signup.username.incorrect=Invalid format. Only letters and numbers are allowed.
+user.signup.username.hint=Only letters or numbers
+
+# Sign in
+user.signin.username=Username
+user.signin.password=Password
+user.signin.title=Sign in
+user.signin.incorrect=The username or password you entered is incorrect
+user.signin.signup=No account yet? <a href="{0}">Sign up</a> now.
+user.signin.error.invalid=The username or password you entered is incorrect 
+user.signout.confirmation=You successfully signed out.
+
+# Stream
+stream.stream=Stream
+
+# User homepage
+user.home.profile=Profile
+user.home.personaldetails=Personal details
+user.home.contacts=Contacts
+user.home.contacts.invite=Invite a friend
+user.home.personalbests=Personal bests
+user.home.pastraces=Past races
+user.home.addnewperformance=Add a new performance
+user.home.charts=Charts
+user.home.nextraces=Next races
+user.home.addnextrace=Add your next race
+
+invitation.email.empty=Please enter your friend's email
+invitation.content.empty=Please enter a message
+invitation.email.incorrect=Incorrect format
+invitation.content.toolong=1000 characters maximum
+
+newperformance.event=Event name
+newperformance.event.error=Please enter event name
+newperformance.event.help=Eg: <i>New York Marathon</i>. Suggestions will appear as you type.
+newperformance.date=Date
+newperformance.date.empty=Pleaser enter date
+newperformance.date.error=Invalid date format
+newperformance.date.help=Eg: <i>11/26/2011</i>. If you don't remember the exact date, just give us your best estimate.
+newperformance.distance=Distance
+newperformance.distance.error=Please select a distance
+newperformance.distance.help=Select a distance
+newperformance.distance.other=Other
+newperformance.distance.unit.help=Select unit
+newperformance.distance.5km=5km
+newperformance.distance.10km=10km
+newperformance.distance.halfmarathon=Half-marathon
+newperformance.distance.marathon=Marathon
+newperformance.distance.50km=50km
+newperformance.distance.100km=100km
+
+newperformance.time.hours.error=Invalid number of hours
+newperformance.time.minutes.error=Invalid number of minutes
+newperformance.time.seconds.error=Invalid number of seconds
+
+newperformance.time=Time
+newperformance.time.hours=hours
+newperformance.time.minutes=minutes
+newperformance.time.seconds=seconds
+newperformance.time.comment=Comment
+
+
+# Settings

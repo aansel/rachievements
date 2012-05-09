@@ -1,0 +1,23 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /												controllers.Application.index()
+
+# Connection
+GET     /signIn											controllers.connection.ConnectionController.signInForm()
+POST    /signIn											controllers.connection.ConnectionController.signIn()
+GET     /signUp											controllers.connection.ConnectionController.signUpForm()
+POST    /signUp											controllers.connection.ConnectionController.signUp()
+GET     /signOut										controllers.connection.ConnectionController.signOut()
+
+# User profile
+GET     /user/:username									controllers.user.UserController.index(username:String)
+GET     /user/:username/edit							controllers.user.EditUserController.index(username:String)
+POST    /user/:username/edit							controllers.user.EditUserController.save(username:String)
+GET     /user/:username/follow							controllers.user.EditUserController.follow(username:String)
+GET     /user/:username/unfollow						controllers.user.EditUserController.unfollow(username:String)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -1,0 +1,20 @@
+@(userForm: Form[User])
+
+@import tags.twitterBootstrap._
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
+
+@insidePage(Messages("user.signup.title"), "signup", "signin") {
+
+	@form(action = controllers.connection.routes.ConnectionController.signUp(), 'class -> "form-horizontal", 'method -> "POST") {
+		<fieldset>
+			@inputText(userForm("username"), '_label -> "Username", 'placeholder -> Messages("user.signup.username.hint"))
+			@inputText(userForm("email"), '_label -> "E-mail")
+			@inputPassword(userForm("password"), '_label -> "Password")
+			@inputPassword(userForm("passwordConfirmation"), '_label -> "Password confirmation")
+			@submit(cancelUrl = "/")
+		</fieldset>
+	}
+
+}

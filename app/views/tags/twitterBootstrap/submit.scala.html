@@ -1,0 +1,8 @@
+@(cancelUrl: String = "")
+@import utils._
+<div class="form-actions">
+	<button type="submit" class="btn btn-primary">@Messages("general.submit")</button>
+	@if(!StringUtils.isEmpty(cancelUrl)) {
+	<button class="btn" onclick="document.location.href='@cancelUrl'; return false;">Cancel</button>
+	}
+</div>
