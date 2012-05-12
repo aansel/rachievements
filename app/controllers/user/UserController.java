@@ -8,8 +8,12 @@ import models.UserContact;
 import play.mvc.Result;
 import views.html.user.index;
 
+/**
+ * Display user information
+ * @author antoine
+ *
+ */
 public class UserController extends Application {
-	
 	
 	/**
 	 * User homepage
@@ -24,5 +28,4 @@ public class UserController extends Application {
 		}
 	}
 
-	
 }

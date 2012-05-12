@@ -4,6 +4,8 @@ general.ok=OK
 general.submit=Submit
 general.cancel=Cancel
 general.error.fieldrequired=This field is required
+general.dateformat=dd/MM/yyyy
+general.error.dateformat=Date format is invalid (dd/mm/yyyy)
 
 general.distance=Distance
 general.race=Race
@@ -73,6 +75,7 @@ invitation.content.empty=Please enter a message
 invitation.email.incorrect=Incorrect format
 invitation.content.toolong=1000 characters maximum
 
+# Past races
 newperformance.event=Event name
 newperformance.event.error=Please enter event name
 newperformance.event.help=Eg: <i>New York Marathon</i>. Suggestions will appear as you type.
@@ -101,6 +104,9 @@ newperformance.time.hours=hours
 newperformance.time.minutes=minutes
 newperformance.time.seconds=seconds
 newperformance.time.comment=Comment
+
+# Next races
+
 
 
 # Settings

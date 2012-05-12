@@ -1,10 +1,14 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Constraint;
 
@@ -43,6 +47,10 @@ public class User extends Model {
 	public String town;
 	
 	public String country;
+	
+	@OneToMany
+	@JoinColumn(name="user_id")
+	public List<NextRace> nextRaces;
 	
 	
 	public static Finder<Long, User> find = new Finder<Long, User>(

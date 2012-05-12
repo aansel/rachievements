@@ -12,6 +12,11 @@ import com.avaje.ebean.Ebean;
 import controllers.Application;
 import controllers.ConnectedInterceptor;
 
+/**
+ * Edit user personal information
+ * @author antoine
+ *
+ */
 @With(ConnectedInterceptor.class)
 public class EditUserController extends Application {
 

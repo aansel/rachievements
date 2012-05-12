@@ -1,0 +1,17 @@
+@(pastRace: Form[controllers.user.PastRaceController.PastRaceForm])
+
+@import tags.twitterBootstrap._
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
+
+@defining(Application.getConnectedUser()) { connectedUser =>
+	@insidePage("Add you past race", "pastrace", "user") {
+		@form(action = controllers.user.routes.NextRaceController.save(), 'class -> "form-horizontal", 'method -> "POST") {
+			<fieldset>
+				@inputText(pastRace("name"), '_label -> "Name")
+				@inputPassword(pastRace("date"), '_label -> "Date")
+				@submit(cancelUrl = controllers.user.routes.UserController.index(connectedUser.username).toString)
+			</fieldset>
+		}
+	}
+}

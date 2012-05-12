@@ -2,7 +2,6 @@
 
 @import tags.twitterBootstrap._
 @import helper._
-
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
 
 @insidePage(Messages("user.signin.title"), "signup", "signin") {
@@ -17,6 +16,6 @@
 			
 			@submit(cancelUrl = "/")
 		</fieldset>
-	}	
+	}
 
 }

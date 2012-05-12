@@ -179,7 +179,7 @@
 					</table>
 					
 					@if(user == connectedUser) {
-					<input type="submit" class="btn primary" value="@Messages("user.home.addnewperformance")" onclick="#">
+					<input onclick="document.location.href='@controllers.user.routes.PastRaceController.index()'" type="submit" class="btn primary" value="@Messages("user.home.addnewperformance")" onclick="#">
 					}
 				</section>
 				
@@ -206,24 +206,18 @@
 							</tr>
 						</thead>
 						<tbody>
+							@for(nextRace <- user.nextRaces) {
 							<tr>
-								<td>New York Marathon</td>
-								<td>09/11/2011</td>
+								<td>@nextRace.name</td>
+								<td>@nextRace.getFormattedDate()</td>
 							</tr>
-							<tr>
-								<td>Paris Half-marathon</td>
-								<td>03/27/2011</td>
-							</tr>
-							<tr>
-								<td>10km Planet Jogging</td>
-								<td>05/01/2009</td>
-							</tr>
+							}
 						</tbody>
 					</table>
 					
 					@if(user == connectedUser) {
 					<div>
-						<input type="submit" class="btn primary" value="@Messages("user.home.addnextrace")">
+						<input onclick="document.location.href='@controllers.user.routes.NextRaceController.index()'" type="submit" class="btn primary" value="@Messages("user.home.addnextrace")">
 					</div>
 					}
 				</section>
