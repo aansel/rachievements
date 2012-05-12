@@ -82,7 +82,7 @@ public class ConnectionController extends Application {
 	 * Sign up
 	 * @return
 	 */
-	private static String USERNAME_FORMAT = "[0-9a-zA-Z]{3}[0-9a-zA-Z\\._]+";
+	private static Pattern USERNAME_PATTERN = Pattern.compile("[0-9a-zA-Z]{3}[0-9a-zA-Z\\._]+");
 	public static Result signUp() {
 		Form<User> filledForm = form(User.class).bindFromRequest();
 		
@@ -98,8 +98,7 @@ public class ConnectionController extends Application {
 		// Check username format
 		String username = filledForm.field("username").value();
 		if (!StringUtils.isEmpty(username)) {
-			Pattern p = Pattern.compile(USERNAME_FORMAT);
-			Matcher m = p.matcher(username);
+			Matcher m = USERNAME_PATTERN.matcher(username);
 			if (!m.matches()) {
 				filledForm.reject("username", "user.signup.username.incorrect");	
 			}
@@ -108,9 +107,12 @@ public class ConnectionController extends Application {
 		if(filledForm.hasErrors()) {
 			return badRequest(signUp.render(filledForm));
 		} else {
+			// Persist user
 			User user = filledForm.get();
 			user.dateCreation = new Date();
 			Ebean.save(user);
+			// Log in user and redirect to user homepage
+			login(username);
 			return redirect(controllers.user.routes.UserController.index(user.username));
 		}
 	}
