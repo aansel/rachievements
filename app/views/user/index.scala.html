@@ -121,21 +121,15 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>10km</td>
-								<td>40min</td>
-								<td>15km/h</td>
-							</tr>
-							<tr>
-								<td>@Messages("general.halfmarathon")</td>
-								<td>1h30</td>
-								<td>14km/h</td>
-							</tr>
-							<tr>
-								<td>@Messages("general.marathon")</td>
-								<td>3h30</td>
-								<td>13km/h</td>
-							</tr>
+						
+							@for(pastRace <- user.getPersonalBests().values()) {
+								<tr>
+									<td>@Messages(pastRace.getFormattedDistance())</td>
+									<td>@pastRace.getFormattedTime()</td>
+									<td>@pastRace.getSpeed()</td>
+								</tr>
+							}
+
 						</tbody>
 					</table>
 				</section>

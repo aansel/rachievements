@@ -40,6 +40,10 @@ public class PastRace extends Model {
 	@Constraints.Required
 	public int time;
 	
+	public static Finder<Long, PastRace> find = new Finder<Long, PastRace>(
+			Long.class, PastRace.class
+	);
+	
 	/**
 	 * Get formatted race date (ex: 12/05/2012)
 	 * @return
@@ -59,6 +63,14 @@ public class PastRace extends Model {
 		int minutes = (time - 3600 * hours) / 60;
 		int seconds = time - 3600 * hours - 60 * minutes;
 		return nf.format(hours) + ":" + nf.format(minutes) + ":" + nf.format(seconds);
+	}
+	
+	/**
+	 * Get formatted distance
+	 * @return
+	 */
+	public String getFormattedDistance() {
+		return DISTANCE.lookup(distance).getLabel();
 	}
 	
 	/**

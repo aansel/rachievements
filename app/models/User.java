@@ -2,20 +2,21 @@ package models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.validation.Constraint;
-
-import com.avaje.ebean.Ebean;
 
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
+
+import com.avaje.ebean.Ebean;
 
 @Entity
 @Table(name="ra_user")
@@ -50,10 +51,12 @@ public class User extends Model {
 	
 	@OneToMany
 	@JoinColumn(name="user_id")
+	@OrderBy(value="date desc")
 	public List<NextRace> nextRaces;
 	
 	@OneToMany
 	@JoinColumn(name="user_id")
+	@OrderBy(value="date desc")
 	public List<PastRace> pastRaces;
 	
 	
@@ -104,5 +107,21 @@ public class User extends Model {
 	public void unfollow(User user) {
 		UserContact contact = UserContact.get(this, user);
 		Ebean.delete(contact);
+	}
+	
+	/**
+	 * Get user personal bests
+	 * @return
+	 */
+	public Map<DISTANCE, PastRace> getPersonalBests() {
+		Map<DISTANCE, PastRace> bests = new TreeMap<DISTANCE, PastRace>();
+		for (PastRace pastRace : pastRaces) {
+			DISTANCE distance = DISTANCE.lookup(pastRace.distance);
+			PastRace best = bests.get(distance);
+			if (best == null || best.time > pastRace.time) {
+				bests.put(distance, pastRace);
+			}
+		}
+		return bests;
 	}
 }

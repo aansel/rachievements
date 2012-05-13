@@ -64,7 +64,6 @@ public enum DISTANCE {
 		return options;
 	}
 	
-	
 	public String getLabel() {
 		return this.label;
 	}
