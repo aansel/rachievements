@@ -157,24 +157,14 @@
 							</tr>
 						</thead>
 						<tbody>
+							@for(pastRace <- user.pastRaces) {
 							<tr>
-								<td>New York Marathon</td>
-								<td>09/11/2011</td>
-								<td>3h30</td>
-								<td>13km/h</td>
+								<td>@pastRace.name</td>
+								<td>@pastRace.getFormattedDate()</td>
+								<td>@pastRace.getFormattedTime()</td>
+								<td>@pastRace.getSpeed()</td>
 							</tr>
-							<tr>
-								<td>Paris Half-marathon</td>
-								<td>03/27/2011</td>
-								<td>1h30</td>
-								<td>14km/h</td>
-							</tr>
-							<tr>
-								<td>10km Planet Jogging</td>
-								<td>05/01/2009</td>
-								<td>40min</td>
-								<td>15km/h</td>
-							</tr>
+							}
 						</tbody>
 					</table>
 					

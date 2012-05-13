@@ -52,14 +52,16 @@ public class NextRaceController extends Application {
 	 * @return
 	 */
 	public static Result save() {
-		Form<NextRaceForm> form = form(NextRaceForm.class).bindFromRequest();		
+		Form<NextRaceForm> form = form(NextRaceForm.class).bindFromRequest();
 		// Check date format
 		Date date = null;
-		DateFormat df = new SimpleDateFormat(Messages.get("general.dateformat"));
-		try {
-			date = df.parse(form.field("date").value());
-		} catch(ParseException p) {
-			form.reject("date", "general.error.dateformat");
+		if (form.error("date") == null) {
+			DateFormat df = new SimpleDateFormat(Messages.get("general.dateformat"));
+			try {
+				date = df.parse(form.field("date").value());
+			} catch(ParseException p) {
+				form.reject("date", "general.error.dateformat");
+			}
 		}
 		
 		if (form.hasErrors()) {

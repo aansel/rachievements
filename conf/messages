@@ -6,6 +6,7 @@ general.cancel=Cancel
 general.error.fieldrequired=This field is required
 general.dateformat=dd/MM/yyyy
 general.error.dateformat=Date format is invalid (dd/mm/yyyy)
+general.error.multiple=Theses fields are required
 
 general.distance=Distance
 general.race=Race
@@ -75,7 +76,23 @@ invitation.content.empty=Please enter a message
 invitation.email.incorrect=Incorrect format
 invitation.content.toolong=1000 characters maximum
 
+
+# Distances
+distance.5000m=5000m
+distance.10km=10km
+distance.10mi=10 miles
+distance.20km=20km
+distance.20mi=20 miles
+distance.hm=Half-marathon
+distance.m=Marathon
+distance.50km=50km
+distance.100km=100km
+distance.speed={0} km/h
+
 # Past races
+pastrace.error.time=Please check time format. Only numbers are allowed.
+
+
 newperformance.event=Event name
 newperformance.event.error=Please enter event name
 newperformance.event.help=Eg: <i>New York Marathon</i>. Suggestions will appear as you type.
@@ -84,16 +101,8 @@ newperformance.date.empty=Pleaser enter date
 newperformance.date.error=Invalid date format
 newperformance.date.help=Eg: <i>11/26/2011</i>. If you don't remember the exact date, just give us your best estimate.
 newperformance.distance=Distance
-newperformance.distance.error=Please select a distance
-newperformance.distance.help=Select a distance
-newperformance.distance.other=Other
-newperformance.distance.unit.help=Select unit
-newperformance.distance.5km=5km
-newperformance.distance.10km=10km
-newperformance.distance.halfmarathon=Half-marathon
-newperformance.distance.marathon=Marathon
-newperformance.distance.50km=50km
-newperformance.distance.100km=100km
+
+
 
 newperformance.time.hours.error=Invalid number of hours
 newperformance.time.minutes.error=Invalid number of minutes

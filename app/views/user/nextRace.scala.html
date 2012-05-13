@@ -5,13 +5,17 @@
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
 
 @defining(Application.getConnectedUser()) { connectedUser =>
-	@insidePage("Add you next race", "nextrace", "user") {
-		@form(action = controllers.user.routes.NextRaceController.save(), 'class -> "form-horizontal", 'method -> "POST") {
-			<fieldset>
-				@inputText(nextRace("name"), '_label -> "Name")
-				@inputText(nextRace("date"), '_label -> "Date")
-				@submit(cancelUrl = controllers.user.routes.UserController.index(connectedUser.username).toString)
-			</fieldset>
-		}
+	@insidePage("Next race", "nextrace", "user") {
+	
+		<h4 style="padding-bottom: 10px;">What is your next race?</h4>
+		<div class="row">
+			@form(action = controllers.user.routes.NextRaceController.save(), 'class -> "form-horizontal", 'method -> "POST") {
+				<fieldset>
+					@inputText(nextRace("name"), '_label -> "Name")
+					@inputText(nextRace("date"), '_label -> "Date")
+					@submit(cancelUrl = controllers.user.routes.UserController.index(connectedUser.username).toString)
+				</fieldset>
+			}
+		</div>
 	}
 }

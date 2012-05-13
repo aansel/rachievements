@@ -52,6 +52,10 @@ public class User extends Model {
 	@JoinColumn(name="user_id")
 	public List<NextRace> nextRaces;
 	
+	@OneToMany
+	@JoinColumn(name="user_id")
+	public List<PastRace> pastRaces;
+	
 	
 	public static Finder<Long, User> find = new Finder<Long, User>(
 			Long.class, User.class
