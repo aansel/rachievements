@@ -16,6 +16,7 @@ import com.avaje.ebean.Ebean;
 
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
 import play.i18n.Messages;
 
 @Entity
@@ -35,6 +36,10 @@ public class NextRace extends Model {
 	
 	@Constraints.Required
 	public Date date;
+	
+	public static Finder<Long, NextRace> find = new Finder<Long, NextRace>(
+			Long.class, NextRace.class
+	);
 	
 	/**
 	 * Get formatted race date (ex: 12/05/2012)

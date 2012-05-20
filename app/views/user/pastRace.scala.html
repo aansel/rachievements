@@ -1,4 +1,4 @@
-@(pastRace: Form[controllers.user.PastRaceController.PastRaceForm])
+@(pastRace: Form[controllers.user.PastRaceController.PastRaceForm], isnew: Boolean)
 
 @import tags.twitterBootstrap._
 @import helper._
@@ -11,6 +11,7 @@
 		<div class="row">
 			@form(action = controllers.user.routes.PastRaceController.save(), 'class -> "form-horizontal", 'method -> "POST") {
 				<fieldset>
+					<input type="hidden" name="id" value='@pastRace.field("id").value()' />
 					@inputText(pastRace("name"), '_label -> "Name")
 					@inputText(pastRace("date"), '_label -> "Date")
 
@@ -33,7 +34,14 @@
 					</div>
 					}
 
-					@submit(cancelUrl = controllers.user.routes.UserController.index(connectedUser.username).toString)
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary">@Messages("general.submit")</button>
+						<button class="btn" onclick="document.location.href='@controllers.user.routes.UserController.index(connectedUser.username)'; return false;">Cancel</button>
+						@if(!isnew) {
+						<button class="btn" onclick="if(confirm('Are you sure you want to delete this race?')) {document.location.href='@controllers.user.routes.PastRaceController.delete(pastRace.field("id").value().toLong)'; return false;} else {return false;}">Delete</button>
+						}
+					</div>
+					
 				</fieldset>
 			}
 		</div>

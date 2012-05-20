@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -123,5 +124,23 @@ public class User extends Model {
 			}
 		}
 		return bests;
+	}
+	
+	/**
+	 * Get user performance by distance
+	 * @return
+	 */
+	public Map<DISTANCE, List<PastRace>> getPastRacesByDistance() {
+		Map<DISTANCE, List<PastRace>> racesByDistance = new TreeMap<DISTANCE, List<PastRace>>();
+		for (PastRace pastRace : pastRaces) {
+			DISTANCE distance = DISTANCE.lookup(pastRace.distance);
+			List<PastRace> races = racesByDistance.get(distance);
+			if (races == null) {
+				races = new ArrayList<PastRace>();
+				racesByDistance.put(distance, races);
+			}
+			races.add(pastRace);
+		}
+		return racesByDistance;
 	}
 }

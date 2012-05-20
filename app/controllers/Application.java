@@ -1,11 +1,19 @@
 package controllers;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+import models.DISTANCE;
 import models.User;
 import play.Logger;
 import play.api.mvc.Session;
 import play.mvc.Controller;
 import play.mvc.Result;
+
 import views.html.index;
+
 
 public class Application extends Controller {
 	
@@ -17,7 +25,7 @@ public class Application extends Controller {
 	 * @return
 	 */
 	public static Result index() {
-		return ok(index.render("Your new application is ready."));
+		return ok(index.render());
 	}
 
 	/**

@@ -11,7 +11,7 @@ public class ContactController extends Application {
 	 * @return
 	 */
 	public static Result index() {
-		return ok(index.render("Your new application is ready."));
+		return ok(index.render());
 	}
 	
 	
@@ -20,7 +20,7 @@ public class ContactController extends Application {
 	 * @return
 	 */
 	public static Result send() {
-		return ok(index.render("Your new application is ready."));
+		return ok(index.render());
 	}
 	
 }

@@ -10,6 +10,7 @@ import com.avaje.ebean.Ebean;
 import models.NextRace;
 import models.PastRace;
 
+import play.Logger;
 import play.data.Form;
 import play.data.validation.Constraints;
 import play.i18n.Messages;
@@ -29,6 +30,7 @@ import controllers.ConnectedInterceptor;
 public class PastRaceController extends Application {
 
 	public static class PastRaceForm {
+		public String id;
 		@Constraints.Required
 		@Constraints.MinLength(value=4)
 		public String name;
@@ -42,6 +44,28 @@ public class PastRaceController extends Application {
 		public String minutes;
 		@Constraints.Required
 		public String seconds;
+		
+		public PastRaceForm() {
+		}
+		
+		public PastRaceForm(PastRace pastRace) {
+			this.id = String.valueOf(pastRace.id);
+			this.name = pastRace.name;
+			
+			DateFormat df = new SimpleDateFormat(Messages.get("general.dateformat"));
+			this.date = df.format(pastRace.date);
+			
+			this.distance = pastRace.distance;
+			
+			int hours = pastRace.time / 3600;
+			this.hours = String.valueOf(hours);
+			
+			int minutes = (pastRace.time - hours * 3600) / 60;
+			this.minutes = String.valueOf(minutes);
+			
+			int seconds = pastRace.time - hours * 3600 - minutes * 60;
+			this.seconds = String.valueOf(seconds);
+		}
 	}
 
 	private final static Form<PastRaceForm> pastRaceForm = form(PastRaceForm.class);
@@ -52,15 +76,33 @@ public class PastRaceController extends Application {
 	 * @return
 	 */
 	public static Result index() {
-		return ok(pastRace.render(pastRaceForm));
+		return ok(pastRace.render(pastRaceForm, true));
 	}
 
+	
 	/**
 	 * Save past race
 	 * @return
 	 */
 	public static Result save() {
 		Form<PastRaceForm> form = form(PastRaceForm.class).bindFromRequest();
+		// Is this an update or a creation?
+		PastRace pastRace = null;
+		boolean isnew = false;
+		String raceId = form.field("id").value();
+		if (!StringUtils.isEmpty(raceId)) {
+			try {
+				pastRace = PastRace.find.byId(Long.valueOf(raceId));
+			} catch(NumberFormatException n) {
+			}			
+			if (pastRace == null || !pastRace.user.equals(getConnectedUser())) {
+				Logger.error("Past race save forbidden");
+				return forbidden();
+			}
+		} else {
+			isnew = true;
+			pastRace = new PastRace();
+		}
 		
 		// Check date format
 		Date date = null;
@@ -91,10 +133,9 @@ public class PastRaceController extends Application {
 		}
 		
 		if (form.hasErrors()) {
-			return badRequest(pastRace.render(form));
+			return badRequest(views.html.user.pastRace.render(form, isnew));
 		} else {
 			// Save past race
-			PastRace pastRace = new PastRace();
 			pastRace.name = form.field("name").value();
 			pastRace.date = date;
 			pastRace.user = Application.getConnectedUser();
@@ -107,4 +148,40 @@ public class PastRaceController extends Application {
 		}
 	}
 
+	/**
+	 * Show Past race edit form
+	 * @return
+	 */
+	public static Result edit(Long raceId) {
+		PastRace pastRace = PastRace.find.byId(Long.valueOf(raceId));
+		if (pastRace == null || !pastRace.user.equals(getConnectedUser())) {
+			Logger.error("Past race save forbidden");
+			return forbidden();
+		} else {
+			Form<PastRaceForm> form = form(PastRaceForm.class).fill(new PastRaceForm(pastRace));
+			return ok(views.html.user.pastRace.render(form, false));	
+		}
+		
+		
+		
+	}
+	
+	/**
+	 * Delete past race
+	 * @return
+	 */
+	public static Result delete(Long raceId) {
+		
+		// Delete race
+		PastRace pastRace = PastRace.find.byId(Long.valueOf(raceId));
+		if (pastRace == null || !pastRace.user.equals(getConnectedUser())) {
+			Logger.error("Past race save forbidden");
+			return forbidden();
+		} else {
+			pastRace.delete();
+		}
+		
+		// Redirect to user homepage
+		return redirect(controllers.user.routes.UserController.index(Application.getConnectedUser().username));
+	}
 }

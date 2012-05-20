@@ -19,11 +19,17 @@ POST    /user/:username/edit							controllers.user.EditUserController.save(user
 GET     /user/:username/follow							controllers.user.EditUserController.follow(username:String)
 GET     /user/:username/unfollow						controllers.user.EditUserController.unfollow(username:String)
 
-# Races
+# Past races
 GET     /pastrace										controllers.user.PastRaceController.index()
 POST    /pastrace										controllers.user.PastRaceController.save()
+GET     /pastrace/:raceId/edit							controllers.user.PastRaceController.edit(raceId:Long)
+GET     /pastrace/:raceId/delete						controllers.user.PastRaceController.delete(raceId:Long)
+
+# Next race
 GET     /nextrace										controllers.user.NextRaceController.index()
 POST    /nextrace										controllers.user.NextRaceController.save()
+GET     /nextrace/:raceId/edit							controllers.user.NextRaceController.edit(raceId:Long)
+GET     /nextrace/:raceId/delete						controllers.user.NextRaceController.delete(raceId:Long)
 
 
 

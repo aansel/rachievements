@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -51,6 +52,36 @@ public class PastRace extends Model {
 	public String getFormattedDate() {
 		DateFormat df = new SimpleDateFormat(Messages.get("general.dateformat"));
 		return df.format(this.date);
+	}
+	
+	/**
+	 * Get day number of past race
+	 * @return
+	 */
+	public int getDay() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(this.date);
+		return cal.get(Calendar.DATE);
+	}
+	
+	/**
+	 * Get month of past race
+	 * @return
+	 */
+	public int getMonth() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(this.date);
+		return cal.get(Calendar.MONTH);
+	}
+	
+	/**
+	 * Get year of past race
+	 * @return
+	 */
+	public int getYear() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(this.date);
+		return cal.get(Calendar.YEAR);
 	}
 	
 	/**
