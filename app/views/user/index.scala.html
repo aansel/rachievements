@@ -76,26 +76,9 @@
 					</div>
 					
 					<dl>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Cléopâtre</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Albert Einstein</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Jules César</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Astérix</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">John Lennon</a><dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Cléopâtre</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Albert Einstein</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Jules César</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Astérix</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">John Lennon</a><dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Cléopâtre</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Albert Einstein</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Jules César</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Astérix</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">John Lennon</a><dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Cléopâtre</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Albert Einstein</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Jules César</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">Astérix</a></dt>
-						<dt><a href="@controllers.user.routes.UserController.index("toto")">John Lennon</a><dt>
+						@for(contact <- user.contacts) {
+							<dt><a href="@controllers.user.routes.UserController.index(contact.username)">@contact.getDisplayName()</a></dt>
+						}
 					</dl>
 					
 					@if(user == connectedUser) {
@@ -114,27 +97,32 @@
 					<div class="page-header">
 						<h3>@Messages("user.home.personalbests")</h3>
 					</div>
-					
-					<table class="table table-condensed">
-						<thead>
-							<tr>
-								<th>@Messages("general.distance")</th>
-								<th>@Messages("general.time")</th>
-								<th>@Messages("general.speed")</th>
-							</tr>
-						</thead>
-						<tbody>
-						
-							@for(pastRace <- user.getPersonalBests().values()) {
-								<tr>
-									<td>@Messages(pastRace.getFormattedDistance())</td>
-									<td>@pastRace.getFormattedTime()</td>
-									<td>@pastRace.getSpeed()</td>
-								</tr>
-							}
-
-						</tbody>
-					</table>
+					@defining(user.getPersonalBests().values()) { bests =>
+						@if(bests.size() == 0) {
+							<p class="nodata">@Messages("general.nodata")</p>
+						} else {
+							<table class="table table-condensed">
+								<thead>
+									<tr>
+										<th>@Messages("general.distance")</th>
+										<th>@Messages("general.time")</th>
+										<th>@Messages("general.speed")</th>
+									</tr>
+								</thead>
+								<tbody>
+								
+									@for(pastRace <- bests) {
+										<tr>
+											<td>@Messages(pastRace.getFormattedDistance())</td>
+											<td>@pastRace.getFormattedTime()</td>
+											<td>@pastRace.getSpeed()</td>
+										</tr>
+									}
+		
+								</tbody>
+							</table>
+						}
+					}
 				</section>
 				
 				
@@ -144,32 +132,36 @@
 						<h3>@Messages("user.home.pastraces")</h3>
 					</div>
 					
-					<table class="table table-condensed">
-						<thead>
-							<tr>
-								<th>@Messages("general.race")</th>
-								<th>@Messages("general.date")</th>
-								<th>@Messages("general.time")</th>
-								<th>@Messages("general.speed")</th>
-							</tr>
-						</thead>
-						<tbody>
-							@for(pastRace <- user.pastRaces) {
-							<tr>
-								<td>
-								@if(user == connectedUser) {
-									<a href="@controllers.user.routes.PastRaceController.edit(pastRace.id)">@pastRace.name</a>
-								} else  {
-									@pastRace.name
+					@if(user.pastRaces.size() == 0) {
+						<p class="nodata">@Messages("general.nodata")</p>
+					} else {
+						<table class="table table-condensed">
+							<thead>
+								<tr>
+									<th>@Messages("general.race")</th>
+									<th>@Messages("general.date")</th>
+									<th>@Messages("general.time")</th>
+									<th>@Messages("general.speed")</th>
+								</tr>
+							</thead>
+							<tbody>
+								@for(pastRace <- user.pastRaces) {
+								<tr>
+									<td>
+									@if(user == connectedUser) {
+										<a href="@controllers.user.routes.PastRaceController.edit(pastRace.id)">@pastRace.name</a>
+									} else  {
+										@pastRace.name
+									}
+									</td>
+									<td>@pastRace.getFormattedDate()</td>
+									<td>@pastRace.getFormattedTime()</td>
+									<td>@pastRace.getSpeed()</td>
+								</tr>
 								}
-								</td>
-								<td>@pastRace.getFormattedDate()</td>
-								<td>@pastRace.getFormattedTime()</td>
-								<td>@pastRace.getSpeed()</td>
-							</tr>
-							}
-						</tbody>
-					</table>
+							</tbody>
+						</table>
+					}
 					
 					@if(user == connectedUser) {
 					<input onclick="document.location.href='@controllers.user.routes.PastRaceController.index()'" type="submit" class="btn primary" value="@Messages("user.home.addnewperformance")" onclick="#">
@@ -184,60 +176,64 @@
 							<h3>@Messages("user.home.charts")</h3>
 						</div>
 						
-						<!-- Tabs -->
-						<ul id="chartTab" class="nav nav-tabs">
-						@for((distance, race) <- SortedMap.empty[DISTANCE, PastRace] ++ racesByDistance) {
-							<li><a href="#chart@distance.getCode()" data-toggle="tab">@Messages(distance.getLabel())</a></li>						
-						}
-						</ul>
-						
-						<!-- Content -->
-						<div id="chartTabContent" class="tab-content">
-						@for(distance <- racesByDistance.keySet()) {
-							<div class="tab-pane fade" id="chart@distance.getCode()">
-								<div id="chartDiv@distance.getCode()"></div>
-							</div>
-						}
-						</div>
-						
-						<!-- Select first tab -->
-						<script>
-							$(document).ready(function() {
-								$("#chartTab li:first a").click();
-							});
-						</script>
-						
-						<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-						<script type="text/javascript">
-						google.load("visualization", "1", {packages:["corechart"]});
-						@for(distance <- racesByDistance.keySet()) {
-							google.setOnLoadCallback(drawChart@distance.getCode());
-						  
-							function drawChart@{distance.getCode()}() {
-								var data = new google.visualization.DataTable();
-								data.addColumn('date', 'Date');
-								data.addColumn('number', 'Time (min)');
-								data.addColumn({type:'string', role:'tooltip'});
-								data.addRows([
-									@for(pastRace <- racesByDistance.get(distance)) {									
-										[new Date(@pastRace.getYear(), @pastRace.getMonth(), @pastRace.getDay()),  @pastRace.time / 60, "@pastRace.getFormattedDate()\n@pastRace.name\n@pastRace.getFormattedTime()"],
-									}
-								]);
-
-								var options = {
-									title: '@Messages(distance.getLabel()) Performance',
-									pointSize: 5,
-									width: 600,
-									height: 300,
-									vAxis: {viewWindow: {min: 0}},
-									hAxis: {format: 'dd/MM/yyyy'}
-								};
-						
-								var chart = new google.visualization.LineChart(document.getElementById('chartDiv@distance.getCode()'));
-								chart.draw(data, options);
+						@if(racesByDistance.size() == 0) {
+							<p class="nodata">@Messages("general.nodata")</p>
+						} else {
+							<!-- Tabs -->
+							<ul id="chartTab" class="nav nav-tabs">
+							@for((distance, race) <- SortedMap.empty[DISTANCE, PastRace] ++ racesByDistance) {
+								<li><a href="#chart@distance.getCode()" data-toggle="tab">@Messages(distance.getLabel())</a></li>						
 							}
+							</ul>
+							
+							<!-- Content -->
+							<div id="chartTabContent" class="tab-content">
+							@for(distance <- racesByDistance.keySet()) {
+								<div class="tab-pane fade" id="chart@distance.getCode()">
+									<div id="chartDiv@distance.getCode()"></div>
+								</div>
+							}
+							</div>
+							
+							<!-- Select first tab -->
+							<script>
+								$(document).ready(function() {
+									$("#chartTab li:first a").click();
+								});
+							</script>
+							
+							<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+							<script type="text/javascript">
+							google.load("visualization", "1", {packages:["corechart"]});
+							@for(distance <- racesByDistance.keySet()) {
+								google.setOnLoadCallback(drawChart@distance.getCode());
+							  
+								function drawChart@{distance.getCode()}() {
+									var data = new google.visualization.DataTable();
+									data.addColumn('date', 'Date');
+									data.addColumn('number', 'Time (min)');
+									data.addColumn({type:'string', role:'tooltip'});
+									data.addRows([
+										@for(pastRace <- racesByDistance.get(distance)) {									
+											[new Date(@pastRace.getYear(), @pastRace.getMonth(), @pastRace.getDay()),  @pastRace.time / 60, "@pastRace.getFormattedDate()\n@pastRace.name\n@pastRace.getFormattedTime()"],
+										}
+									]);
+	
+									var options = {
+										title: '@Messages(distance.getLabel()) Performance',
+										pointSize: 5,
+										width: 600,
+										height: 300,
+										vAxis: {viewWindow: {min: 0}},
+										hAxis: {format: 'dd/MM/yyyy'}
+									};
+							
+									var chart = new google.visualization.LineChart(document.getElementById('chartDiv@distance.getCode()'));
+									chart.draw(data, options);
+								}
+							}
+							</script>
 						}
-						</script>
    					}
    					
    					
@@ -250,28 +246,32 @@
 						<h3>@Messages("user.home.nextraces")</h3>
 					</div>
 					
-					<table class="table table-condensed">
-						<thead>
-							<tr>
-								<th>@Messages("general.race")</th>
-								<th>@Messages("general.date")</th>
-							</tr>
-						</thead>
-						<tbody>
-							@for(nextRace <- user.nextRaces) {
-							<tr>
-								<td>
-								@if(user == connectedUser) {
-									<a href="@controllers.user.routes.NextRaceController.edit(nextRace.id)">@nextRace.name</a>
-								} else  {
-									@nextRace.name
+					@if(user.nextRaces.size() == 0) {
+						<p class="nodata">@Messages("general.nodata")</p>
+					} else {
+						<table class="table table-condensed">
+							<thead>
+								<tr>
+									<th>@Messages("general.race")</th>
+									<th>@Messages("general.date")</th>
+								</tr>
+							</thead>
+							<tbody>
+								@for(nextRace <- user.nextRaces) {
+								<tr>
+									<td>
+									@if(user == connectedUser) {
+										<a href="@controllers.user.routes.NextRaceController.edit(nextRace.id)">@nextRace.name</a>
+									} else  {
+										@nextRace.name
+									}
+									</td>
+									<td>@nextRace.getFormattedDate()</td>
+								</tr>
 								}
-								</td>
-								<td>@nextRace.getFormattedDate()</td>
-							</tr>
-							}
-						</tbody>
-					</table>
+							</tbody>
+						</table>
+					}
 					
 					@if(user == connectedUser) {
 					<div>

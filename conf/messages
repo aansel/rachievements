@@ -7,6 +7,7 @@ general.error.fieldrequired=This field is required
 general.dateformat=dd/MM/yyyy
 general.error.dateformat=Date format is invalid (dd/mm/yyyy)
 general.error.multiple=Theses fields are required
+general.nodata=No data available
 
 general.distance=Distance
 general.race=Race

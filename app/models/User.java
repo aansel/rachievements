@@ -10,9 +10,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import org.apache.commons.lang.StringUtils;
 
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
@@ -59,6 +63,16 @@ public class User extends Model {
 	@JoinColumn(name="user_id")
 	@OrderBy(value="date desc")
 	public List<PastRace> pastRaces;
+	
+	@ManyToMany
+	@JoinTable(name = "ra_user_contact",
+		joinColumns = {
+			@JoinColumn(name="follower_id") 
+		},
+		inverseJoinColumns = {
+			@JoinColumn(name="followee_id")
+		})
+	public List<User> contacts;
 	
 	
 	public static Finder<Long, User> find = new Finder<Long, User>(
@@ -142,5 +156,17 @@ public class User extends Model {
 			races.add(pastRace);
 		}
 		return racesByDistance;
+	}
+	
+	/**
+	 * Get name to be displayed on the website
+	 * @return
+	 */
+	public String getDisplayName() {
+		if (!StringUtils.isEmpty(fullname) && fullname.trim().length() > 4) {
+			return fullname;
+		} else {
+			return username;
+		}
 	}
 }
