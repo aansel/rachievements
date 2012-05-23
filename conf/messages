@@ -117,6 +117,8 @@ newperformance.time.comment=Comment
 
 # Next races
 
-
+# News
+news.pastrace=<a href="{0}">{1}</a> ran {2} in {3}.
+news.nextrace=<a href="{0}">{1}</a> will be running {2} on {3}.
 
 # Settings

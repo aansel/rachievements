@@ -88,6 +88,7 @@ public class NextRaceController extends Application {
 		} else {
 			isnew = true;
 			nextRace = new NextRace();
+			nextRace.dateCreation = new Date();
 		}
 		
 		// Check date format

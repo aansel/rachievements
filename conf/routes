@@ -31,6 +31,11 @@ POST    /nextrace										controllers.user.NextRaceController.save()
 GET     /nextrace/:raceId/edit							controllers.user.NextRaceController.edit(raceId:Long)
 GET     /nextrace/:raceId/delete						controllers.user.NextRaceController.delete(raceId:Long)
 
+# News
+GET		/news											controllers.news.NewsController.index()
+
+# Invite a friend
+GET		/invite											controllers.invite.InviteController.index()
 
 
 # Map static resources from the /public folder to the /assets URL path

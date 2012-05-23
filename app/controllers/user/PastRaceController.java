@@ -102,6 +102,7 @@ public class PastRaceController extends Application {
 		} else {
 			isnew = true;
 			pastRace = new PastRace();
+			pastRace.dateCreation = new Date();
 		}
 		
 		// Check date format

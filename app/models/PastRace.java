@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -40,6 +41,10 @@ public class PastRace extends Model {
 	
 	@Constraints.Required
 	public int time;
+	
+	@Constraints.Required
+	@Column(name="date_creation")
+	public Date dateCreation;
 	
 	public static Finder<Long, PastRace> find = new Finder<Long, PastRace>(
 			Long.class, PastRace.class

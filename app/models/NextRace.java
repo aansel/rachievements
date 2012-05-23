@@ -10,13 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.Constraint;
-
-import com.avaje.ebean.Ebean;
 
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
-import play.db.ebean.Model.Finder;
 import play.i18n.Messages;
 
 @Entity
@@ -36,6 +32,11 @@ public class NextRace extends Model {
 	
 	@Constraints.Required
 	public Date date;
+	
+	@Constraints.Required
+	@Column(name="date_creation")
+	public Date dateCreation;
+	
 	
 	public static Finder<Long, NextRace> find = new Finder<Long, NextRace>(
 			Long.class, NextRace.class

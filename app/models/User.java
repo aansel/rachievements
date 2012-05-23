@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -168,5 +169,33 @@ public class User extends Model {
 		} else {
 			return username;
 		}
+	}
+	
+	/**
+	 * Get news to be displayed in user news feed
+	 * @return
+	 */
+	public List<News> getNews() {
+		List<News> news = new ArrayList<News>();
+		for (User contact : this.contacts) {
+			// Contacts past races
+			for (PastRace pastRace : contact.pastRaces) {
+				news.add(new News(pastRace));
+			}
+			// Contacts next races
+			for (NextRace nextRace : contact.nextRaces) {
+				news.add(new News(nextRace));
+			}
+		}
+		// User past races
+		for (PastRace pastRace : this.pastRaces) {
+			news.add(new News(pastRace));
+		}
+		// User next races
+		for (NextRace nextRace : this.nextRaces) {
+			news.add(new News(nextRace));
+		}
+		Collections.sort(news);
+		return news;
 	}
 }

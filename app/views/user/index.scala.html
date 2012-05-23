@@ -82,7 +82,7 @@
 					</dl>
 					
 					@if(user == connectedUser) {
-					<input type="submit" class="btn primary" value="@Messages("user.home.contacts.invite")" onclick="document.location.href='#'">
+					<input type="submit" class="btn primary" value="@Messages("user.home.contacts.invite")" onclick="document.location.href='@controllers.invite.routes.InviteController.index()'">
 					}
 					
 				</section>

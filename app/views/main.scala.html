@@ -24,7 +24,7 @@
 								@if(connectedUser == null) {
 									<li class="@("active".when(nav == "home"))"><a href="/">Home</a></li>
 								} else {
-									<li class="@("active".when(nav == "news"))"><a href="@controllers.user.routes.UserController.index(connectedUser.username)">News feed</a></li>
+									<li class="@("active".when(nav == "news"))"><a href="@controllers.news.routes.NewsController.index()">News feed</a></li>
 									<li class="@("active".when(nav == "user"))"><a href="@controllers.user.routes.UserController.index(connectedUser.username)">My profile</a></li>
 								}
 								<li class="@("active".when(nav == "about"))"><a href="#">About</a></li>
