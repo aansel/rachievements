@@ -1,0 +1,24 @@
+@()
+
+@import helper._
+@import models.DISTANCE
+@import models.PastRace
+@import scala.collection.SortedMap
+
+
+@insidePage("Invite a friend", "invite", "") {
+
+	<div class="span8">
+		<p>To invite your friends to join runningachievements.com, we recommend to send them a personal e-mail
+			with a link to your Running Achievements user page.
+			Here is the link you can include in your e-mail:
+			<b>
+				<span style="color:#08C">
+					http://www.runningachievements.com@controllers.user.routes.UserController.index(Application.getConnectedUser().username)
+				</span>
+			</b>
+		</p>
+	</div>
+	
+}
+
