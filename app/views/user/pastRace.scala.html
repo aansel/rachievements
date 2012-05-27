@@ -22,6 +22,10 @@
 						'_showConstraints -> false
 					)
 					
+					<!-- TODO correct this... -->
+					<script type="text/javascript">$("select#distance").parent().find("p.help-block").html("<i>You will soon be able to add runs for any distance</i>")</script>
+					
+					
 					@defining(pastRace.error("time") != null) { timeError =>
 					<div class="control-group@if(timeError){ error}">
 						<label class="control-label">Time</label>

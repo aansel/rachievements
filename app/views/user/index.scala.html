@@ -8,6 +8,18 @@
 @defining(Application.getConnectedUser()) { connectedUser =>
 	@insidePage(user.username, "user", "user") {
 	
+		@if(connectedUser == user) {
+			<div id="share" style="float: right;">
+				<span class='st_facebook_large' displayText='Facebook'></span>
+				<span class='st_twitter_large' displayText='Tweet'></span>
+				<span class='st_googleplus_large' displayText='Google +'></span>
+				<span class='st_email_large' displayText='Email'></span>
+			</div>
+			<script type="text/javascript">
+				$("#share").appendTo("#title");
+			</script>
+		}
+	
 		<div class="row">
 			<!-- Left side -->
 			<div class="span4">

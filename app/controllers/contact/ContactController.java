@@ -1,13 +1,13 @@
 package controllers.contact;
 
 import play.mvc.Result;
-import views.html.index;
+import views.html.contact.index;
 import controllers.Application;
 
 public class ContactController extends Application {
 	
 	/**
-	 * Display contact form
+	 * Display contact page
 	 * @return
 	 */
 	public static Result index() {
@@ -15,12 +15,5 @@ public class ContactController extends Application {
 	}
 	
 	
-	/**
-	 * Submit contact form
-	 * @return
-	 */
-	public static Result send() {
-		return ok(index.render());
-	}
 	
 }
