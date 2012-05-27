@@ -1,0 +1,24 @@
+@(newsList: List[News])
+
+@import helper._
+@import models.DISTANCE
+@import models.PastRace
+@import scala.collection.SortedMap
+
+
+@insidePage("News feed", "news", "news") {
+
+	<div class="span8">
+		@if(newsList.size() == 0) {
+			<p class="nodata">@Messages("general.nodata")</p>
+		} else {
+			@for(news <- newsList) {
+				<p>
+					<b>[@news.date]</b> @Html(news.label)
+				</p>
+			}
+		}
+	</div>
+	
+}
+
